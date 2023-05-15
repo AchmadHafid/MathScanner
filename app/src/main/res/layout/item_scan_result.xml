@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/medium"
+    android:layout_marginVertical="@dimen/small"
+    app:cardCornerRadius="@dimen/medium"
+    app:cardElevation="@dimen/empty"
+    app:contentPadding="@dimen/medium"
+    tools:layout_marginVertical="@dimen/medium">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_operation_label"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:text="@string/operation"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            app:layout_constraintEnd_toStartOf="@+id/iv_source"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_operation"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            app:layout_constraintEnd_toEndOf="@+id/tv_operation_label"
+            app:layout_constraintStart_toStartOf="@+id/tv_operation_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_operation_label"
+            tools:text="7 + 6" />
+
+        <TextView
+            android:id="@+id/tv_result_label"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:text="@string/result"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            app:layout_constraintEnd_toEndOf="@+id/tv_operation_label"
+            app:layout_constraintStart_toStartOf="@id/tv_operation_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_operation" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            app:layout_constraintEnd_toEndOf="@+id/tv_result_label"
+            app:layout_constraintStart_toStartOf="@+id/tv_result_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_result_label"
+            tools:text="13" />
+
+        <TextView
+            android:id="@+id/tv_timestamp"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_result"
+            tools:text="Today, 14: 29" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_source"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/medium"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_result"
+            app:layout_constraintDimensionRatio="3:2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_operation_label"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.ImageView.Rounded"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@drawable/img_source_placeholder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

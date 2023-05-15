@@ -1,6 +1,7 @@
 [versions]
 gradle = "8.0.1"
 kotlin = "1.8.21"
+androidDesugarJdkLibs = "2.0.2"
 androidxCore = "1.10.1"
 androidxAppCompat = "1.6.1"
 androidxActivity = "1.7.1"
@@ -9,11 +10,13 @@ androidxLifecycle = "2.6.1"
 androidxNavigation = "2.5.3"
 androidxConstraintlayout = "2.1.4"
 material3 = "1.9.0"
+lottie = "6.0.0"
 junit4 = "4.13.2"
 androidxTestJunit = "1.1.5"
 androidxEspresso = "3.5.1"
 
 [libraries]
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
@@ -26,6 +29,7 @@ androidx-lifecycle-viewmodel-savedstate = { group = "androidx.lifecycle", name =
 androidx-lifecycle-common-java8 = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "androidxLifecycle" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintlayout" }
 material3 = { group = "com.google.android.material", name = "material", version.ref = "material3" }
+lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
