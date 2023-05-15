@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -46,6 +47,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
     implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.preference)
     implementation(libs.material3)
     implementation(libs.lottie)
     testImplementation(libs.junit4)

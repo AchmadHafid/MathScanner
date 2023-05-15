@@ -8,6 +8,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import io.github.achmadhafid.mathscanner.R
 import io.github.achmadhafid.mathscanner.databinding.FragmentHomeBinding
 import io.github.achmadhafid.mathscanner.onApplySystemBarWindowInsets
@@ -27,7 +28,7 @@ class HomeFragment : Fragment() {
     //endregion
     //region Lifecycle Callback
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _viewBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
@@ -66,7 +67,10 @@ class HomeFragment : Fragment() {
     private fun setupToolbar() {
         viewBinding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.menu_setting -> true
+                R.id.menu_setting -> true.also {
+                    findNavController().navigate(HomeFragmentDirections.openSetting())
+                }
+
                 else -> false
             }
         }

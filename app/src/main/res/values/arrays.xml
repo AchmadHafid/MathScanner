@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="setting_storage_types">
+        <item>Encrypted File</item>
+        <item>Database</item>
+    </string-array>
+    <string-array name="setting_storage_type_values">
+        <item>file</item>
+        <item>database</item>
+    </string-array>
+
+</resources>

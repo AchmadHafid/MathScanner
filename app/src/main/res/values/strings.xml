@@ -4,5 +4,7 @@
     <string name="operation">Operation:</string>
     <string name="result">Result:</string>
     <string name="empty_animation_description">Tap below button to start scanning images</string>
+    <string name="settings_title">Settings</string>
+    <string name="setting_storage_type_title">Select storage type</string>
 
 </resources>

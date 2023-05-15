@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="App Settings">
+
+    <ListPreference
+        android:defaultValue="file"
+        android:dialogTitle="@string/setting_storage_type_title"
+        android:entries="@array/setting_storage_types"
+        android:entryValues="@array/setting_storage_type_values"
+        android:icon="@drawable/ic_round_storage_24"
+        android:key="list"
+        android:title="Storage"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>
