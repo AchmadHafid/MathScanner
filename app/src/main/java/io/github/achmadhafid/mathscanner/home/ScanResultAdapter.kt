@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.achmadhafid.mathscanner.R
+import javax.inject.Inject
 
-class ScanResultAdapter() : ListAdapter<ScanResult, ScanResultAdapter.ViewHolder>(ScanResultDiffCallback) {
+class ScanResultAdapter @Inject constructor() :
+    ListAdapter<ScanResult, ScanResultAdapter.ViewHolder>(ScanResultDiffCallback) {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

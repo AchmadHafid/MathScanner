@@ -13,6 +13,8 @@ data class ScanResult(
     val sourceUri: Uri? = null
 )
 
+typealias ScanResults = List<ScanResult>
+
 val ScanResult.formattedTimestamp: String
     get() = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
         .format(LocalDateTime.ofInstant(timestamp, ZoneId.systemDefault()))

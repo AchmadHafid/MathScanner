@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
+import io.github.achmadhafid.mathscanner.R
 import io.github.achmadhafid.mathscanner.databinding.FragmentSettingBinding
 import io.github.achmadhafid.mathscanner.onApplySystemBarWindowInsets
 
@@ -31,6 +33,7 @@ class SettingFragment : Fragment() {
 
         setupWindowInset()
         setupToolbar()
+        setupPreference()
 
         //endregion
     }
@@ -54,6 +57,12 @@ class SettingFragment : Fragment() {
     private fun setupToolbar() {
         viewBinding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun setupPreference() {
+        childFragmentManager.commit {
+            replace(R.id.fragment_preference, PreferenceFragment())
         }
     }
 

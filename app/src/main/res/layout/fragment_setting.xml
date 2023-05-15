@@ -25,7 +25,6 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_preference"
-        android:name="io.github.achmadhafid.mathscanner.setting.PreferenceFragment"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
         app:layout_constraintBottom_toBottomOf="parent"
