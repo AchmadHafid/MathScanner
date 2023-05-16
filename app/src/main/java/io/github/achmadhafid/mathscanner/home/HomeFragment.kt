@@ -1,6 +1,7 @@
 package io.github.achmadhafid.mathscanner.home
 
 import android.Manifest
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -160,7 +161,7 @@ class HomeFragment : Fragment() {
     private val imagePickerRequest = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
     private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
-            viewModel.scan(uri)
+            viewModel.scan(uri, storageType)
         }
     }
 
@@ -175,7 +176,7 @@ class HomeFragment : Fragment() {
     private val photoPickerLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
         if (isSuccess) {
             photoPickerUri?.let {
-                viewModel.scan(it)
+                viewModel.scan(it, storageType)
             }
         }
     }
@@ -229,6 +230,18 @@ class HomeFragment : Fragment() {
     }
 
     //endregion
+    //endregion
+    //region Preference Helper
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
+    private val storageTypeKey by lazy {
+        getString(R.string.preference_key_storage_type)
+    }
+    private val storageType: String
+        get() = sharedPreferences.getString(storageTypeKey, ScanResultDataSource.TYPE_FILE).orEmpty()
+
     //endregion
 
 }

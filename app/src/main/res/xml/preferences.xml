@@ -9,7 +9,7 @@
         android:entries="@array/setting_storage_types"
         android:entryValues="@array/setting_storage_type_values"
         android:icon="@drawable/ic_round_storage_24"
-        android:key="list"
+        android:key="@string/preference_key_storage_type"
         android:title="Storage"
         app:useSimpleSummaryProvider="true" />
 

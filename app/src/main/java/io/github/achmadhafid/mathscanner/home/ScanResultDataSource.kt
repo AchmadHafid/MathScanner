@@ -1,7 +1,8 @@
 package io.github.achmadhafid.mathscanner.home
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.getAndUpdate
 import javax.inject.Inject
 
 interface ScanResultDataSource {
@@ -11,29 +12,33 @@ interface ScanResultDataSource {
 
     companion object {
         const val TYPE_FILE = "file"
-        const val TYPE_DB = "db"
+        const val TYPE_DB = "database"
     }
 
 }
 
 class ScanResultFileDataSource @Inject constructor() : ScanResultDataSource {
 
+    private val scanResultsHolder = MutableStateFlow<ScanResults>(emptyList())
+
     override fun getScanResults(): Flow<ScanResults> =
-        flowOf(DummyScanResults.takeLast(3))
+        scanResultsHolder
 
     override suspend fun addScanResult(scanResult: ScanResult) {
-        TODO("Not yet implemented")
+        scanResultsHolder.getAndUpdate { it + scanResult }
     }
 
 }
 
 class ScanResultDBDataSource @Inject constructor() : ScanResultDataSource {
 
+    private val scanResultsHolder = MutableStateFlow<ScanResults>(emptyList())
+
     override fun getScanResults(): Flow<ScanResults> =
-        flowOf(DummyScanResults.take(2))
+        scanResultsHolder
 
     override suspend fun addScanResult(scanResult: ScanResult) {
-        TODO("Not yet implemented")
+        scanResultsHolder.getAndUpdate { it + scanResult }
     }
 
 }

@@ -10,7 +10,8 @@ data class ScanResult(
     val timestamp: Instant = Instant.now(),
     val operation: String = "",
     val result: Int = 0,
-    val sourceUri: Uri? = null
+    val imageUri: Uri? = null,
+    val storageType: String = ""
 )
 
 typealias ScanResults = List<ScanResult>
@@ -21,10 +22,3 @@ val ScanResult.formattedTimestamp: String
 
 private const val DATE_TIME_FORMAT = "EEEE, yyyy-MM-dd, HH:mm"
 
-val DummyScanResults = listOf(0, 1, 2, 3, 4).map { index ->
-    ScanResult(
-        timestamp = Instant.now().plusSeconds(60L * index),
-        operation = "$index + $index",
-        result = index + index
-    )
-}

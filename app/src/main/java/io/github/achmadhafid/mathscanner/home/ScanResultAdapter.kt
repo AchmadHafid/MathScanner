@@ -25,7 +25,7 @@ class ScanResultAdapter @Inject constructor() :
             tvOperation.text = scanResult.operation
             tvResult.text = "${scanResult.result}"
             tvTimestamp.text = scanResult.formattedTimestamp
-            scanResult.sourceUri?.let {
+            scanResult.imageUri?.let {
                 ivSource.setImageURI(it)
             } ?: ivSource.setImageResource(R.drawable.img_source_placeholder)
         }

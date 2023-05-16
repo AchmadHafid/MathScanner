@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="preference_key_storage_type">storage_type</string>
+
     <string name="app_name">MathScanner</string>
     <string name="operation">Operation:</string>
     <string name="result">Result:</string>
