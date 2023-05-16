@@ -18,9 +18,33 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+        }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+    flavorDimensions += listOf("theme", "imageSource")
+    productFlavors {
+        create("red") {
+            dimension = "theme"
+            versionNameSuffix = "-red"
+        }
+        create("green") {
+            dimension = "theme"
+            versionNameSuffix = "-green"
+        }
+        create("filesystem") {
+            dimension = "imageSource"
+            versionNameSuffix = "-filesystem"
+            buildConfigField("String", "IMAGE_SOURCE", "\"filesystem\"")
+        }
+        create("camera") {
+            dimension = "imageSource"
+            versionNameSuffix = "-built-in-camera"
+            buildConfigField("String", "IMAGE_SOURCE", "\"camera\"")
         }
     }
     buildFeatures {

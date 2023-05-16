@@ -25,6 +25,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.achmadhafid.mathscanner.BuildConfig
+import io.github.achmadhafid.mathscanner.ImageSource
 import io.github.achmadhafid.mathscanner.R
 import io.github.achmadhafid.mathscanner.createPhotoUriWithName
 import io.github.achmadhafid.mathscanner.databinding.FragmentHomeBinding
@@ -131,9 +133,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupFab() {
-        viewBinding.fab.setOnClickListener {
-//            pickImage()
-            takePhoto()
+        viewBinding.fab.apply {
+            when (BuildConfig.IMAGE_SOURCE) {
+                ImageSource.Filesystem() -> {
+                    setImageResource(R.drawable.ic_round_image_24)
+                    setOnClickListener { pickImage() }
+                }
+
+                ImageSource.Camera() -> {
+                    setImageResource(R.drawable.ic_round_camera_24)
+                    setOnClickListener { takePhoto() }
+                }
+            }
         }
     }
 
