@@ -1,8 +1,12 @@
 package io.github.achmadhafid.mathscanner.home
 
+import io.github.achmadhafid.mathscanner.home.localdb.dao.ScanResultDao
+import io.github.achmadhafid.mathscanner.home.localdb.entity.toScanResultEntity
+import io.github.achmadhafid.mathscanner.home.localdb.entity.toScanResults
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 interface ScanResultDataSource {
@@ -30,15 +34,15 @@ class ScanResultFileDataSource @Inject constructor() : ScanResultDataSource {
 
 }
 
-class ScanResultDBDataSource @Inject constructor() : ScanResultDataSource {
-
-    private val scanResultsHolder = MutableStateFlow<ScanResults>(emptyList())
+class ScanResultDBDataSource @Inject constructor(
+    private val scnDao: ScanResultDao
+) : ScanResultDataSource {
 
     override fun getScanResults(): Flow<ScanResults> =
-        scanResultsHolder
+        scnDao.selectAllAsFlow().map { it.toScanResults() }
 
     override suspend fun addScanResult(scanResult: ScanResult) {
-        scanResultsHolder.getAndUpdate { it + scanResult }
+        scnDao.inserts(scanResult.toScanResultEntity())
     }
 
 }
