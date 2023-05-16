@@ -59,7 +59,7 @@
             app:layout_constraintVertical_bias="0.4"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/animation_empty" />
+            app:lottie_rawRes="@raw/animation_empty_scan_result" />
 
         <TextView
             android:id="@+id/tv_empty_description"

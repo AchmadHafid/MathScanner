@@ -7,4 +7,9 @@
     <string name="settings_title">Settings</string>
     <string name="setting_storage_type_title">Select storage type</string>
 
+    <string name="permission_rationale_title">Permission Required</string>
+    <string name="permission_denied_title">Permission Denied</string>
+    <string name="permission_rationale_content_photo">Please grant permissions to take photo and save it into local storage</string>
+    <string name="permission_denied_content_photo">Can not take photo without permissions. You can grant it in device settings then try again</string>
+
 </resources>

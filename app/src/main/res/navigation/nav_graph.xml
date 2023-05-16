@@ -13,11 +13,23 @@
         <action
             android:id="@+id/open_setting"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/show_permission_dialog"
+            app:destination="@id/permissionDialog" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="io.github.achmadhafid.mathscanner.setting.SettingFragment"
         android:label="SettingFragment"
         tools:layout="@layout/fragment_setting" />
+    <dialog
+        android:id="@+id/permissionDialog"
+        android:name="io.github.achmadhafid.mathscanner.permissiondialog.PermissionDialog"
+        android:label="fragment_dialog_permission"
+        tools:layout="@layout/fragment_dialog_permission">
+        <argument
+            android:name="type"
+            app:argType="io.github.achmadhafid.mathscanner.permissiondialog.PermissionDialog$Type" />
+    </dialog>
 
 </navigation>
