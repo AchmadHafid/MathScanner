@@ -1,3 +1,9 @@
+@file:Suppress("DEPRECATION", "ObjectLiteralToLambda")
+
+import com.android.build.gradle.api.ApplicationVariant
+import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -47,6 +53,17 @@ android {
             buildConfigField("String", "IMAGE_SOURCE", "\"camera\"")
         }
     }
+    applicationVariants.all(object : Action<ApplicationVariant> {
+        override fun execute(variant: ApplicationVariant) {
+            variant.outputs.all(object : Action<BaseVariantOutput> {
+                override fun execute(output: BaseVariantOutput) {
+                    if (output is BaseVariantOutputImpl) {
+                        output.outputFileName = "app-${variant.versionName}.apk"
+                    }
+                }
+            })
+        }
+    })
     buildFeatures {
         viewBinding = true
     }
