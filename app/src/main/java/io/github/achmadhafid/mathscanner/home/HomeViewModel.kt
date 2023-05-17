@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
                 ScanResult(
                     timestamp = Instant.now(),
                     operation = "${Random.nextInt(1, 10)} + ${Random.nextInt(1, 10)}",
-                    result = Random.nextInt(),
+                    result = Random.nextInt(1, 20),
                     imageUri = uri,
                     storageType = storageType
                 ), storageType

@@ -8,7 +8,6 @@
     android:layout_marginHorizontal="@dimen/medium"
     android:layout_marginVertical="@dimen/small"
     app:cardCornerRadius="@dimen/medium"
-    app:contentPadding="@dimen/medium"
     tools:layout_marginVertical="@dimen/medium">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +19,8 @@
             android:id="@+id/tv_operation_label"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            android:layout_marginTop="@dimen/medium"
             android:text="@string/operation"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             app:layout_constraintEnd_toStartOf="@+id/iv_source"
@@ -61,18 +62,18 @@
             android:id="@+id/tv_timestamp"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium"
             android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_badge"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_result"
+            app:layout_constraintStart_toStartOf="@+id/tv_operation_label"
+            app:layout_constraintTop_toTopOf="@+id/iv_badge"
             tools:text="Today, 14: 29" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_source"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="@dimen/match_constraint"
-            android:layout_marginStart="@dimen/medium"
+            android:layout_marginHorizontal="@dimen/medium"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="@+id/tv_result"
             app:layout_constraintDimensionRatio="3:2"
@@ -81,6 +82,37 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearance.ImageView.Rounded"
             tools:ignore="ContentDescription"
             tools:srcCompat="@drawable/img_source_placeholder" />
+
+        <ImageView
+            android:id="@+id/iv_badge"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_storage_type"
+            app:layout_constraintTop_toTopOf="@+id/tv_storage_type"
+            app:srcCompat="@drawable/bg_quarter_circle_top_left"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_storage_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium"
+            android:gravity="center"
+            android:paddingVertical="@dimen/small"
+            android:paddingStart="@dimen/medium_fit"
+            android:paddingEnd="@dimen/medium"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorSurface"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_source"
+            tools:text="Database" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
