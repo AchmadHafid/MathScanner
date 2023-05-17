@@ -39,6 +39,11 @@ class FileStorageManager @Inject constructor(@ApplicationContext private val con
             writeToFile(Json.encodeToString(it))
         }
 
+    suspend fun deleteScanResult(scanResult: ScanResult): ScanResults =
+        (getAllScanResults() - scanResult).also {
+            writeToFile(Json.encodeToString(it))
+        }
+
     suspend fun getAllScanResults(): ScanResults =
         runCatching {
             Json.decodeFromString<ScanResults>(readFromFile())

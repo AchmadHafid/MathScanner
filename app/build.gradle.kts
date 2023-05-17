@@ -96,6 +96,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.lottie)
     implementation(libs.hilt.android)
+    implementation(libs.once)
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
     kapt(libs.hilt.compiler)

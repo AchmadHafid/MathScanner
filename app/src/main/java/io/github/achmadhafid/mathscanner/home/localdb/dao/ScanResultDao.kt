@@ -1,6 +1,7 @@
 package io.github.achmadhafid.mathscanner.home.localdb.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,6 +14,9 @@ interface ScanResultDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun inserts(vararg item: ScanResultEntity)
+
+    @Delete
+    suspend fun deletes(vararg item: ScanResultEntity)
 
     @Query("SELECT * FROM ScanResultEntity")
     fun selectAllAsFlow(): Flow<ScanResultEntities>

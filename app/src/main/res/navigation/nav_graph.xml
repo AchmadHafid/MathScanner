@@ -16,6 +16,9 @@
         <action
             android:id="@+id/show_permission_dialog"
             app:destination="@id/permissionDialog" />
+        <action
+            android:id="@+id/show_swipe_delete_tutorial"
+            app:destination="@id/swipeDeleteTutorialDialog" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -31,5 +34,10 @@
             android:name="type"
             app:argType="io.github.achmadhafid.mathscanner.permissiondialog.PermissionDialog$Type" />
     </dialog>
+    <dialog
+        android:id="@+id/swipeDeleteTutorialDialog"
+        android:name="io.github.achmadhafid.mathscanner.swipedeletedialog.SwipeDeleteTutorialDialog"
+        android:label="fragment_dialog_swipe_delete_tutorial"
+        tools:layout="@layout/fragment_dialog_swipe_delete_tutorial" />
 
 </navigation>

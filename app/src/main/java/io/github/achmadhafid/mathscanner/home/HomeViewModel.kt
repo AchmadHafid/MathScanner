@@ -39,6 +39,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun delete(scanResult: ScanResult) {
+        viewModelScope.launch {
+            scanResultRepository.deleteScanResult(scanResult)
+        }
+    }
+
     companion object {
         private const val FLOW_TIMEOUT = 3000L
     }

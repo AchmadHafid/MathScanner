@@ -5,6 +5,8 @@ import android.os.Build
 import android.view.View
 import android.view.WindowInsets
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 
 @SuppressLint("WrongConstant")
 fun View.onApplySystemBarWindowInsets(action: (topInset: Int, bottomInset: Int) -> Unit) {
@@ -27,4 +29,18 @@ fun View.onApplySystemBarWindowInsets(action: (topInset: Int, bottomInset: Int) 
 
         windowInsets
     }
+}
+
+fun RecyclerView.onRightSwiped(action: (position: Int) -> Unit) {
+    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean = false
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            action(viewHolder.adapterPosition)
+        }
+    }).attachToRecyclerView(this)
 }

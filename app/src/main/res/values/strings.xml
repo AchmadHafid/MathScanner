@@ -15,4 +15,7 @@
     <string name="permission_rationale_content_photo">Please grant permissions to take photo and save it into local storage</string>
     <string name="permission_denied_content_photo">Can not take photo without permissions. You can grant it in device settings then try again</string>
 
+    <string name="swipe_delete_tutorial_dialog_title">Swipe ➜ to Delete</string>
+    <string name="swipe_delete_tutorial_dialog_content">You can swipe any card to the right to delete it.</string>
+
 </resources>

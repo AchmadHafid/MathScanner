@@ -26,4 +26,12 @@ class ScanResultRepository @Inject constructor(
         }
     }
 
+    suspend fun deleteScanResult(scanResult: ScanResult) {
+        when (scanResult.storageType) {
+            ScanResultDataSource.TYPE_FILE -> fileDataSource.deleteScanResult(scanResult)
+            ScanResultDataSource.TYPE_DB -> dbDataSource.deleteScanResult(scanResult)
+            else -> error("Invalid storage type")
+        }
+    }
+
 }

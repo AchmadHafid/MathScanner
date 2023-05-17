@@ -1,6 +1,7 @@
 package io.github.achmadhafid.mathscanner.home
 
 import android.Manifest
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -31,13 +32,16 @@ import io.github.achmadhafid.mathscanner.R
 import io.github.achmadhafid.mathscanner.createPhotoUriWithName
 import io.github.achmadhafid.mathscanner.databinding.FragmentHomeBinding
 import io.github.achmadhafid.mathscanner.onApplySystemBarWindowInsets
+import io.github.achmadhafid.mathscanner.onRightSwiped
 import io.github.achmadhafid.mathscanner.permissiondialog.PermissionDialog
 import io.github.achmadhafid.mathscanner.permissiondialog.onPermissionRationaleAskAgain
+import jonathanfinerty.once.Once
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -66,7 +70,7 @@ class HomeFragment : Fragment() {
         onPermissionRationaleAskAgain {
             viewLifecycleOwner.lifecycleScope.launch {
                 /** quick workaround to wait for permission dialog rationale dismissed */
-                delay(1000)
+                delay(resources.getInteger(R.integer.dialog_delay_in_millis).toLong())
                 takePhoto()
             }
         }
@@ -129,6 +133,9 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         viewBinding.rvScanResults.apply {
             adapter = scanResultAdapter
+            onRightSwiped { position ->
+                viewModel.delete(scanResultAdapter.currentList[position])
+            }
         }
     }
 
@@ -151,6 +158,7 @@ class HomeFragment : Fragment() {
     private fun show(scanResults: ScanResults) {
         scanResultAdapter.submitList(scanResults)
         viewBinding.groupEmpty.isVisible = scanResults.isEmpty()
+        showSwipeDeleteTutorialIfNeeded(scanResults)
     }
 
     //endregion
@@ -172,6 +180,8 @@ class HomeFragment : Fragment() {
     private val imagePickerRequest = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
     private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
+            val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            requireContext().contentResolver.takePersistableUriPermission(uri, flag)
             viewModel.scan(uri, storageType)
         }
     }
@@ -254,5 +264,22 @@ class HomeFragment : Fragment() {
         get() = sharedPreferences.getString(storageTypeKey, ScanResultDataSource.TYPE_FILE).orEmpty()
 
     //endregion
+    //region UI Helper
+
+    private fun showSwipeDeleteTutorialIfNeeded(scanResults: ScanResults) {
+        if (scanResults.size == 1 && !Once.beenDone(Once.THIS_APP_INSTALL, SWIPE_DELETE_TUTORIAL_TAG)) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(resources.getInteger(R.integer.dialog_delay_in_millis).toLong())
+                findNavController().navigate(HomeFragmentDirections.showSwipeDeleteTutorial())
+                Once.markDone(SWIPE_DELETE_TUTORIAL_TAG)
+            }
+        }
+    }
+
+    //endregion
+
+    companion object {
+        const val SWIPE_DELETE_TUTORIAL_TAG = "swipe_to_delete"
+    }
 
 }

@@ -30,9 +30,11 @@ class ScanResultAdapter @Inject constructor() :
             tvTimestamp.text = scanResult.formattedTimestamp
             tvStorageType.text = scanResult.storageType
 
-            scanResult.imageUri?.let {
-                ivSource.setImageURI(it)
-            } ?: ivSource.setImageResource(R.drawable.img_source_placeholder)
+            runCatching {
+                scanResult.imageUri?.let {
+                    ivSource.setImageURI(it)
+                } ?: ivSource.setImageResource(R.drawable.img_source_placeholder)
+            }
 
             ivBadge.setOnClickListener {
                 val message = it.context.getString(R.string.toast_data_location_info, scanResult.storageType)

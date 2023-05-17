@@ -17,6 +17,7 @@ interface ScanResultDataSource {
 
     fun getScanResults(): Flow<ScanResults>
     suspend fun addScanResult(scanResult: ScanResult)
+    suspend fun deleteScanResult(scanResult: ScanResult)
 
     companion object {
         const val TYPE_FILE = "file"
@@ -42,17 +43,26 @@ class ScanResultFileDataSource @Inject constructor(
         scanResultsHolder.update { scanResults }
     }
 
+    override suspend fun deleteScanResult(scanResult: ScanResult) {
+        val scanResults = fileStorageManager.deleteScanResult(scanResult)
+        scanResultsHolder.update { scanResults }
+    }
+
 }
 
 class ScanResultDBDataSource @Inject constructor(
-    private val scnDao: ScanResultDao
+    private val scanResultDao: ScanResultDao
 ) : ScanResultDataSource {
 
     override fun getScanResults(): Flow<ScanResults> =
-        scnDao.selectAllAsFlow().map { it.toScanResults() }
+        scanResultDao.selectAllAsFlow().map { it.toScanResults() }
 
     override suspend fun addScanResult(scanResult: ScanResult) {
-        scnDao.inserts(scanResult.toScanResultEntity())
+        scanResultDao.inserts(scanResult.toScanResultEntity())
+    }
+
+    override suspend fun deleteScanResult(scanResult: ScanResult) {
+        scanResultDao.deletes(scanResult.toScanResultEntity())
     }
 
 }

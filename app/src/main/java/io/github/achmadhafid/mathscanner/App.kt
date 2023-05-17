@@ -14,10 +14,16 @@ import dagger.hilt.components.SingletonComponent
 import io.github.achmadhafid.mathscanner.home.ScanResultDBDataSource
 import io.github.achmadhafid.mathscanner.home.ScanResultDataSource
 import io.github.achmadhafid.mathscanner.home.ScanResultFileDataSource
+import jonathanfinerty.once.Once
 import javax.inject.Named
 
 @HiltAndroidApp
 class App : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        Once.initialise(this)
+    }
 
     @InstallIn(SingletonComponent::class)
     @Module
