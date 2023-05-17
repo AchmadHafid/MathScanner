@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION", "ObjectLiteralToLambda")
+@file:Suppress("DEPRECATION", "ObjectLiteralToLambda", "UnstableApiUsage")
 
 import com.android.build.gradle.api.ApplicationVariant
 import com.android.build.gradle.api.BaseVariantOutput
@@ -7,6 +7,7 @@ import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
     id("org.jetbrains.kotlin.kapt")
@@ -90,6 +91,8 @@ dependencies {
     implementation(libs.androidx.preference)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.security.crypto.ktx)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.material3)
     implementation(libs.lottie)
     implementation(libs.hilt.android)

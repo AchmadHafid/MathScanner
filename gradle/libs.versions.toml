@@ -1,6 +1,7 @@
 [versions]
 gradle = "8.0.1"
 kotlin = "1.8.21"
+kotlinxSerializationJson = "1.5.1"
 androidDesugarJdkLibs = "2.0.2"
 androidxCore = "1.10.1"
 androidxAppCompat = "1.6.1"
@@ -11,6 +12,7 @@ androidxNavigation = "2.5.3"
 androidxConstraintlayout = "2.1.4"
 androidXPreference = "1.2.0"
 androidXRoom = "2.5.1"
+androidXSecurityKtx = "1.1.0-alpha06"
 hilt = "2.45"
 material3 = "1.9.0"
 lottie = "6.0.0"
@@ -19,6 +21,7 @@ androidxTestJunit = "1.1.5"
 androidxEspresso = "3.5.1"
 
 [libraries]
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
@@ -35,6 +38,7 @@ androidx-preference = { group = "androidx.preference", name = "preference-ktx", 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidXRoom" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidXRoom" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidXRoom" }
+androidx-security-crypto-ktx = { group = "androidx.security", name = "security-crypto", version.ref = "androidXSecurityKtx" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
@@ -46,6 +50,7 @@ androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espres
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "gradle" }
 android-library = { id = "com.android.library", version.ref = "gradle" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidxNavigation" }
