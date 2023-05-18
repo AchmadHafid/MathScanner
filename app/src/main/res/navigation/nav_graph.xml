@@ -12,12 +12,16 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/open_setting"
-            app:destination="@id/settingFragment" />
+            app:destination="@id/settingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/show_permission_dialog"
             app:destination="@id/permissionDialog" />
         <action
-            android:id="@+id/show_swipe_delete_tutorial"
+            android:id="@+id/show_swipe_delete_tutorial_dialog"
             app:destination="@id/swipeDeleteTutorialDialog" />
         <action
             android:id="@+id/show_scan_error_dialog"

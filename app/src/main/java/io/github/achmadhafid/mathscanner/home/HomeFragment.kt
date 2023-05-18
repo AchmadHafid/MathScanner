@@ -162,7 +162,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showSwipeDeleteTutorialDialog() {
-        navigateSafely(withDelay = true, direction = HomeFragmentDirections.showSwipeDeleteTutorial()) {
+        navigateSafely(withDelay = true, direction = HomeFragmentDirections.showSwipeDeleteTutorialDialog()) {
             viewModel.onShowSwipeDeleteTutorialDialog()
         }
     }
