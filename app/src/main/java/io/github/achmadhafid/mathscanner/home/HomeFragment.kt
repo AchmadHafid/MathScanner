@@ -24,6 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.achmadhafid.mathscanner.BuildConfig
@@ -35,7 +36,6 @@ import io.github.achmadhafid.mathscanner.onApplySystemBarWindowInsets
 import io.github.achmadhafid.mathscanner.onRightSwiped
 import io.github.achmadhafid.mathscanner.permissiondialog.PermissionDialog
 import io.github.achmadhafid.mathscanner.permissiondialog.onPermissionRationaleAskAgain
-import jonathanfinerty.once.Once
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -68,9 +68,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onPermissionRationaleAskAgain {
-            viewLifecycleOwner.lifecycleScope.launch {
-                /** quick workaround to wait for permission dialog rationale dismissed */
-                delay(resources.getInteger(R.integer.dialog_delay_in_millis).toLong())
+            executeWithDelay {
                 takePhoto()
             }
         }
@@ -122,7 +120,7 @@ class HomeFragment : Fragment() {
         viewBinding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_setting -> true.also {
-                    findNavController().navigate(HomeFragmentDirections.openSetting())
+                    navigateSafely(direction = HomeFragmentDirections.openSetting())
                 }
 
                 else -> false
@@ -134,7 +132,7 @@ class HomeFragment : Fragment() {
         viewBinding.rvScanResults.apply {
             adapter = scanResultAdapter
             onRightSwiped { position ->
-                viewModel.delete(scanResultAdapter.currentList[position])
+                viewModel delete scanResultAdapter.currentList[position]
             }
         }
     }
@@ -155,10 +153,24 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun show(scanResults: ScanResults) {
+    //endregion
+    //region UI Helper
+
+    private fun showScanResults(scanResults: ScanResults) {
         scanResultAdapter.submitList(scanResults)
         viewBinding.groupEmpty.isVisible = scanResults.isEmpty()
-        showSwipeDeleteTutorialIfNeeded(scanResults)
+    }
+
+    private fun showSwipeDeleteTutorialDialog() {
+        navigateSafely(withDelay = true, direction = HomeFragmentDirections.showSwipeDeleteTutorial()) {
+            viewModel.onShowSwipeDeleteTutorialDialog()
+        }
+    }
+
+    private fun showScanErrorDialog(scanError: UiState.ScanError) {
+        navigateSafely(direction = HomeFragmentDirections.showScanErrorDialog(scanError)) {
+            viewModel.onShowScanErrorDialog()
+        }
     }
 
     //endregion
@@ -167,8 +179,13 @@ class HomeFragment : Fragment() {
     private fun observeUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiStateFlow.collectLatest {
-                    show(it)
+                viewModel.uiState.collectLatest { uiState ->
+                    showScanResults(uiState.scanResults)
+                    if (uiState.scanError != null) {
+                        showScanErrorDialog(uiState.scanError)
+                    } else if (uiState.showSwipeDeleteTutorialDialog) {
+                        showSwipeDeleteTutorialDialog()
+                    }
                 }
             }
         }
@@ -236,19 +253,9 @@ class HomeFragment : Fragment() {
             if (permissions.all { it.value }) {
                 launchPhotoPicker()
             } else if (storagePermissions.any { shouldShowRequestPermissionRationale(it) }) {
-                showPhotoPermissionRationaleDialog()
-            } else showPhotoPermissionsDeniedDialog()
+                navigateSafely(direction = HomeFragmentDirections.showPermissionDialog(PermissionDialog.Type.Rationale))
+            } else navigateSafely(direction = HomeFragmentDirections.showPermissionDialog(PermissionDialog.Type.Denied))
         }
-
-    private fun showPhotoPermissionRationaleDialog() {
-        val direction = HomeFragmentDirections.showPermissionDialog(PermissionDialog.Type.Rationale)
-        findNavController().navigate(direction)
-    }
-
-    private fun showPhotoPermissionsDeniedDialog() {
-        val direction = HomeFragmentDirections.showPermissionDialog(PermissionDialog.Type.Denied)
-        findNavController().navigate(direction)
-    }
 
     //endregion
     //endregion
@@ -264,22 +271,30 @@ class HomeFragment : Fragment() {
         get() = sharedPreferences.getString(storageTypeKey, ScanResultDataSource.TYPE_FILE).orEmpty()
 
     //endregion
-    //region UI Helper
+    //region Extra Helper
 
-    private fun showSwipeDeleteTutorialIfNeeded(scanResults: ScanResults) {
-        if (scanResults.size == 1 && !Once.beenDone(Once.THIS_APP_INSTALL, SWIPE_DELETE_TUTORIAL_TAG)) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                delay(resources.getInteger(R.integer.dialog_delay_in_millis).toLong())
-                findNavController().navigate(HomeFragmentDirections.showSwipeDeleteTutorial())
-                Once.markDone(SWIPE_DELETE_TUTORIAL_TAG)
+    private fun navigateSafely(withDelay: Boolean = false, direction: NavDirections, onSuccess: () -> Unit = {}) {
+        fun navigate() {
+            findNavController().apply {
+                if (currentDestination?.id == R.id.homeFragment) {
+                    navigate(direction)
+                    onSuccess()
+                }
             }
+        }
+
+        if (withDelay) {
+            executeWithDelay { navigate() }
+        } else navigate()
+    }
+
+    private fun executeWithDelay(action: () -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            delay(resources.getInteger(R.integer.dialog_delay_in_millis).toLong())
+            action()
         }
     }
 
     //endregion
-
-    companion object {
-        const val SWIPE_DELETE_TUTORIAL_TAG = "swipe_to_delete"
-    }
 
 }

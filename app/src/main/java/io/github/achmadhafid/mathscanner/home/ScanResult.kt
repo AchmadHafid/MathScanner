@@ -1,6 +1,7 @@
 package io.github.achmadhafid.mathscanner.home
 
 import android.net.Uri
+import androidx.annotation.Keep
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -13,6 +14,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
+@Keep
 @Serializable
 data class ScanResult(
     @Serializable(with = InstantSerializer::class)

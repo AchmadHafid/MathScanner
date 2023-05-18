@@ -19,6 +19,9 @@
         <action
             android:id="@+id/show_swipe_delete_tutorial"
             app:destination="@id/swipeDeleteTutorialDialog" />
+        <action
+            android:id="@+id/show_scan_error_dialog"
+            app:destination="@id/scanErrorDialog" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -39,5 +42,14 @@
         android:name="io.github.achmadhafid.mathscanner.swipedeletedialog.SwipeDeleteTutorialDialog"
         android:label="fragment_dialog_swipe_delete_tutorial"
         tools:layout="@layout/fragment_dialog_swipe_delete_tutorial" />
+    <dialog
+        android:id="@+id/scanErrorDialog"
+        android:name="io.github.achmadhafid.mathscanner.scanerrordialog.ScanErrorDialog"
+        android:label="fragment_dialog_scan_error"
+        tools:layout="@layout/fragment_dialog_scan_error">
+        <argument
+            android:name="scan_error"
+            app:argType="io.github.achmadhafid.mathscanner.home.UiState$ScanError" />
+    </dialog>
 
 </navigation>

@@ -18,4 +18,10 @@
     <string name="swipe_delete_tutorial_dialog_title">Swipe ➜ to Delete</string>
     <string name="swipe_delete_tutorial_dialog_content">You can swipe any card to the right to delete it.</string>
 
+    <string name="text_recognizer_error_title">Ups, our AI is not working</string>
+    <string name="text_recognizer_error_content">Could you please try again?</string>
+    <string name="math_expression_not_found_title">No Math Expression Found</string>
+    <string name="math_expression_not_found_content">Below is the text that we can extract from the image</string>
+    <string name="scanned_text">Scanned Text</string>
+
 </resources>

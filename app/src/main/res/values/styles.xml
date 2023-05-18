@@ -6,4 +6,12 @@
         <item name="cornerSize">@dimen/medium</item>
     </style>
 
+    <style name="Widget.Button.Error" parent="@style/Widget.Material3.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Button.Error</item>
+    </style>
+
+    <style name="ThemeOverlay.Button.Error" parent="ThemeOverlay.Material3.Button">
+        <item name="colorPrimary">?attr/colorError</item>
+    </style>
+
 </resources>
