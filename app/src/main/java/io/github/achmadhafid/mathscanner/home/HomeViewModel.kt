@@ -8,12 +8,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.Instant
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val mathScanner: MathScanner,
     private val scanResultRepository: ScanResultRepository
 ) : ViewModel() {
 
@@ -27,15 +26,23 @@ class HomeViewModel @Inject constructor(
 
     fun scan(uri: Uri, storageType: String) {
         viewModelScope.launch {
-            scanResultRepository.addScanResult(
-                ScanResult(
-                    timestamp = Instant.now(),
-                    operation = "${Random.nextInt(1, 10)} + ${Random.nextInt(1, 10)}",
-                    result = Random.nextInt(1, 20),
-                    imageUri = uri,
-                    storageType = storageType
-                ), storageType
-            )
+            runCatching {
+                mathScanner.scan(uri)
+            }.onSuccess { (operation, result) ->
+                if (result != null) {
+                    val scanResult = ScanResult(
+                        operation = operation,
+                        result = result,
+                        imageUri = uri,
+                        storageType = storageType
+                    )
+                    scanResultRepository.addScanResult(scanResult)
+                } else {
+                    TODO("show error dialog")
+                }
+            }.onFailure {
+                TODO("show error dialog")
+            }
         }
     }
 

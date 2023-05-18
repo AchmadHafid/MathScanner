@@ -2,6 +2,7 @@
 gradle = "8.0.1"
 kotlin = "1.8.21"
 kotlinxSerializationJson = "1.5.1"
+kotlinxCoroutinePlayServices = "1.7.1"
 androidDesugarJdkLibs = "2.0.2"
 androidxCore = "1.10.1"
 androidxAppCompat = "1.6.1"
@@ -13,6 +14,7 @@ androidxConstraintlayout = "2.1.4"
 androidXPreference = "1.2.0"
 androidXRoom = "2.5.1"
 androidXSecurityKtx = "1.1.0-alpha06"
+mlkitTextRecognition = "16.0.0"
 hilt = "2.45"
 material3 = "1.9.0"
 lottie = "6.0.0"
@@ -23,6 +25,7 @@ androidxEspresso = "3.5.1"
 
 [libraries]
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinePlayServices" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
@@ -44,6 +47,7 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 material3 = { group = "com.google.android.material", name = "material", version.ref = "material3" }
+mlkit-text-recognition = { group = "com.google.mlkit", name = "text-recognition", version.ref = "mlkitTextRecognition" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 once = { group = "com.jonathanfinerty.once", name = "once", version.ref = "once" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }

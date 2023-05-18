@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,6 +41,10 @@ class App : Application() {
         @Named(ScanResultDataSource.TYPE_DB)
         fun providesScanResultDBDataSource(implementation: ScanResultDBDataSource): ScanResultDataSource =
             implementation
+
+        @Provides
+        fun provideTextRecognizer(): TextRecognizer =
+            TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
     }
 

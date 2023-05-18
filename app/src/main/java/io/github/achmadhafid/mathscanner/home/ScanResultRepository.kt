@@ -18,8 +18,8 @@ class ScanResultRepository @Inject constructor(
                 (s1 + s2).sortedBy { it.timestamp }
             }
 
-    suspend fun addScanResult(scanResult: ScanResult, storageType: String) {
-        when (storageType) {
+    suspend fun addScanResult(scanResult: ScanResult) {
+        when (scanResult.storageType) {
             ScanResultDataSource.TYPE_FILE -> fileDataSource.addScanResult(scanResult)
             ScanResultDataSource.TYPE_DB -> dbDataSource.addScanResult(scanResult)
             else -> error("Invalid storage type")
