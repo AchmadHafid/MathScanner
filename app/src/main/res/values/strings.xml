@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="preference_key_storage_type">storage_type</string>
+    <string name="preference_key_storage_type" translatable="false">storage_type</string>
 
     <string name="app_name">MathScanner</string>
     <string name="operation">Operation:</string>
@@ -22,6 +22,7 @@
     <string name="text_recognizer_error_content">Could you please try again?</string>
     <string name="math_expression_not_found_title">No Math Expression Found</string>
     <string name="math_expression_not_found_content">Below is the text that we can extract from the image</string>
+    <string name="math_expression_not_found_empty_text_content">No text can be recognized from the given image</string>
     <string name="scanned_text">Scanned Text</string>
 
 </resources>

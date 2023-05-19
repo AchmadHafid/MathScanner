@@ -49,9 +49,15 @@ class ScanErrorDialog : BottomSheetDialogFragment() {
                 is UiState.ScanError.MathExpressionNotFound -> {
                     animationView.setAnimation(R.raw.animation_math_expression_not_found)
                     tvTitle.text = getText(R.string.math_expression_not_found_title)
-                    tvContent.text = getText(R.string.math_expression_not_found_content)
-                    etText.setText((scanError as UiState.ScanError.MathExpressionNotFound).text)
-                    tilText.isVisible = true
+                    (scanError as UiState.ScanError.MathExpressionNotFound).text.let {
+                        if (it.isNotEmpty()) {
+                            tvContent.text = getText(R.string.math_expression_not_found_content)
+                            etText.setText(it)
+                            tilText.isVisible = true
+                        } else {
+                            tvContent.text = getText(R.string.math_expression_not_found_empty_text_content)
+                        }
+                    }
                 }
             }
 

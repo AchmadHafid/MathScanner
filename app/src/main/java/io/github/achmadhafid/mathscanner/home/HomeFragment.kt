@@ -28,7 +28,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.achmadhafid.mathscanner.BuildConfig
-import io.github.achmadhafid.mathscanner.ImageSource
 import io.github.achmadhafid.mathscanner.R
 import io.github.achmadhafid.mathscanner.createPhotoUriWithName
 import io.github.achmadhafid.mathscanner.databinding.FragmentHomeBinding
@@ -68,6 +67,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onPermissionRationaleAskAgain {
+            /** A quick workaround to wait for rationale dialog to be dismissed before asking permission again*/
             executeWithDelay {
                 takePhoto()
             }
@@ -131,9 +131,7 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         viewBinding.rvScanResults.apply {
             adapter = scanResultAdapter
-            onRightSwiped { position ->
-                viewModel delete scanResultAdapter.currentList[position]
-            }
+            onRightSwiped { viewModel delete scanResultAdapter.currentList[it] }
         }
     }
 
@@ -296,5 +294,11 @@ class HomeFragment : Fragment() {
     }
 
     //endregion
+
+    enum class ImageSource(private val source: String) {
+        Filesystem("filesystem"), Camera("camera");
+
+        operator fun invoke() = source
+    }
 
 }
